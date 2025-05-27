@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Клонировать репозиторий
+        uses: actions/checkout@v3
+
+      - name: Установить Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Проверка линтера
+        run: npm run lint
+
+      - name: Проверка форматирования
+        run: npx prettier --check .
+
+      - name: Прогнать тесты
+        run: npm run test
+
+      - name: Сборка проекта
+        run: npm run build
+
+  deploy:
+    name: Деплой на GitHub Pages
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇Клонировать репозиторий
+        uses: actions/checkout@v3
+
+      - name: Установить Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Сборка проекта
+        run: npm run build
+
+      - name: Загрузка на GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
