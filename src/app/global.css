@@ -5,13 +5,13 @@
 }
 
 :root {
-  --font-ui: 'Inter', sans-serif;
-  --font-accent: 'Share Tech', sans-serif;
+  --font-ui: "Inter", sans-serif;
+  --font-accent: "Share Tech", sans-serif;
 }
 
 body {
   font-family: var(--font-ui);
-  --color-bg: #1A1A1A;
+  --color-bg: #1a1a1a;
   --color-text: #f1f1f1;
   line-height: 1.5;
 }
