@@ -7,11 +7,13 @@
 :root {
   --font-ui: "Inter", sans-serif;
   --font-accent: "Share Tech", sans-serif;
+  --color-bg: #1a1a1a;
+  --color-text: #f1f1f1;
 }
 
 body {
   font-family: var(--font-ui);
-  --color-bg: #1a1a1a;
-  --color-text: #f1f1f1;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   line-height: 1.5;
 }
