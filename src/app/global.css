@@ -16,4 +16,14 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.5;
+
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
 }
