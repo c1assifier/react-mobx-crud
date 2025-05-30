@@ -31,7 +31,7 @@
   border-radius: 8px;
   text-decoration: none;
   backdrop-filter: blur(3px);
-  background-color: transparent;
+  background-color: var(--button-backButton-bg);
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
   font-weight: 500;
   transition: all 0.25s ease;
@@ -39,6 +39,7 @@
 }
 
 .backButton:hover {
+  background-color: var(--button-backButton-hover);
   border-color: white;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   transform: scale(1.03);
@@ -50,7 +51,7 @@
   right: 24px;
   background: transparent;
   border: none;
-  color: white;
+  color: var(--color-history-btn);
   font-size: 24px;
   cursor: pointer;
   z-index: 1000;

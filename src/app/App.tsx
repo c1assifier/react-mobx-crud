@@ -4,18 +4,25 @@ import { userStore } from "@/store/userStore";
 import { StoreContext } from "@/store/StoreContext";
 import { UserFormPage } from "@/pages/UserFormPage";
 import { EditUserPage } from "@/pages/EditFormPage";
+import { SearchPage } from "@/pages/SearchPage";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 function App() {
   return (
-    <StoreContext.Provider value={{ userStore }}>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/add" element={<UserFormPage />} />
-          <Route path="/edit/:id" element={<EditUserPage />} />
-        </Routes>
-      </HashRouter>
-    </StoreContext.Provider>
+    <>
+      <ThemeProvider>
+        <StoreContext.Provider value={{ userStore }}>
+          <HashRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/add" element={<UserFormPage />} />
+              <Route path="/edit/:id" element={<EditUserPage />} />
+              <Route path="/search" element={<SearchPage />} />
+            </Routes>
+          </HashRouter>
+        </StoreContext.Provider>
+      </ThemeProvider>
+    </>
   );
 }
 
