@@ -3,21 +3,59 @@ import type { IUser } from "@/types/User";
 import { API_URL } from "@/config/endpoints";
 import { mockUsers } from "@/mocks/users";
 
-class UserStore {
+const isGithubPages = window.location.hostname.includes("github.io");
+
+export class UserStore {
   users: IUser[] = [];
   isLoading = false;
   page = 1;
   hasMore = true;
-  isUsingMock = false;
+  isUsingMock = isGithubPages;
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  fetchAllUsers = async () => {
+    if (this.isUsingMock) {
+      runInAction(() => {
+        this.users = mockUsers;
+        this.hasMore = false;
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}`);
+      const data: IUser[] = await response.json();
+
+      runInAction(() => {
+        this.users = data;
+        this.hasMore = false;
+      });
+    } catch (error) {
+      console.error("Ошибка при загрузке всех пользователей:", error);
+    }
+  };
+
   fetchMoreUsers = async () => {
     if (this.isLoading || !this.hasMore) return;
 
     this.isLoading = true;
+
+    if (this.isUsingMock) {
+      runInAction(() => {
+        const newUsers = mockUsers.slice((this.page - 1) * 12, this.page * 12);
+        this.users = [...this.users, ...newUsers];
+        if (newUsers.length < 12) {
+          this.hasMore = false;
+        } else {
+          this.page += 1;
+        }
+        this.isLoading = false;
+      });
+      return;
+    }
 
     try {
       const response = await fetch(`${API_URL}?_limit=12&_page=${this.page}`);
@@ -37,13 +75,11 @@ class UserStore {
         }
       });
     } catch {
+      console.warn("Переход на mockUsers из-за ошибки API");
       runInAction(() => {
-        if (!this.isUsingMock) {
-          this.users = mockUsers;
-          this.hasMore = false;
-          this.isUsingMock = true;
-          console.warn("Переход на mockUsers из-за ошибки API");
-        }
+        this.users = mockUsers;
+        this.hasMore = false;
+        this.isUsingMock = true;
       });
     } finally {
       runInAction(() => {

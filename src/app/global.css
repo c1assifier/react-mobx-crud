@@ -7,8 +7,79 @@
 :root {
   --font-ui: "Inter", sans-serif;
   --font-accent: "Share Tech", sans-serif;
+
   --color-bg: #1a1a1a;
   --color-text: #f1f1f1;
+  --color-panel-bg: #2b2626;
+  --color-input-bg: #1c1c1c;
+  --color-border: #555;
+  --color-error: #ff5555;
+  --color-hover: #333;
+  --color-button-border: rgba(255, 255, 255, 0.4);
+  --color-shadow: rgba(255, 255, 255, 0.1);
+
+  --color-table-cell-bg: #2b2626;
+  --color-table-border: rgba(255, 255, 255, 0.4);
+  --color-table-shadow: rgba(255, 255, 255, 0.6);
+  --color-table-blur: rgba(255, 255, 255, 0.2);
+  --color-table-text: #f1f1f1;
+  --color-icon: #ffffff;
+  --color-history-btn: white;
+
+  --button-primary-bg: #444;
+  --button-primary-hover-bg: #666;
+  --button-text-color: #fff;
+  --button-secondary-bg: #2b2626;
+  --button-secondary-hover-bg: #333;
+  --button-secondary-text-color: #fff;
+
+  --color-muted: #999;
+  --color-muted-alt: #666;
+
+  --form-shadow: none;
+
+  --button-backButton-bg: none;
+  --button-backButton-hover: none;
+}
+
+[data-theme="light"] {
+  --color-bg: #f6f7f9;
+  --color-text: #212121;
+  --color-text-btn: #f1f1f1;
+  --color-panel-bg: #fff;
+  --color-input-bg: #ffffff;
+  --color-border: #dedede;
+  --color-error: #ff5555;
+  --color-hover: #e0e0e0;
+  --color-button-tools-border: #ccc;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+  --color-icon: #ffffff;
+  --color-history-btn: black;
+
+  --color-table-cell-bg: #212121;
+  --color-table-border: #ccc;
+  --color-table-shadow: rgba(0, 0, 0, 0.1);
+  --color-table-blur: rgba(0, 0, 0, 0.05);
+
+  --button-primary-bg: #444;
+  --button-primary-hover-bg: #666;
+  --button-text-color: #fff;
+  --button-secondary-bg: #e0e0e0;
+  --button-secondary-hover-bg: #d4d4d4;
+  --button-secondary-text-color: #212121;
+
+  --color-muted: #7c8a9a;
+  --color-muted-alt: #999;
+  --button-addButton-bg: #07f;
+  --button-addButton-hover: #006be6;
+
+  --button-backButton-bg: #07f;
+  --button-backButton-hover: #006be6;
+
+  --form-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  --color-shadow: none;
+  --color-button-border: none;
 }
 
 body {
@@ -16,14 +87,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.5;
-
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-}
-
-body::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  background: transparent;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
