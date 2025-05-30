@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SiVk } from "react-icons/si";
-import { MdFormatListBulletedAdd, MdDelete, MdEdit } from "react-icons/md";
-import { FaCircle } from "react-icons/fa";
+import { MdFormatListBulletedAdd, MdDelete } from "react-icons/md";
+import { FaCircle, FaSearch, FaEdit } from "react-icons/fa";
 import { RiToolsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import styles from "./Table.module.css";
@@ -12,13 +12,32 @@ import { Loader } from "../Loader";
 
 export const Table = observer(() => {
   const { userStore } = useStores();
-  const { users, hasMore, fetchMoreUsers, deleteUser } = userStore;
+  const { users, hasMore, fetchMoreUsers, deleteUser, isLoading } = userStore;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (users.length === 0) {
       fetchMoreUsers();
     }
   }, [users.length, fetchMoreUsers]);
+
+  //* Для большого экрана
+  useEffect(() => {
+    const checkContentHeight = () => {
+      if (
+        containerRef.current &&
+        containerRef.current.scrollHeight <= window.innerHeight &&
+        hasMore &&
+        !isLoading
+      ) {
+        fetchMoreUsers();
+      }
+    };
+
+    checkContentHeight();
+    window.addEventListener("resize", checkContentHeight);
+    return () => window.removeEventListener("resize", checkContentHeight);
+  }, [users.length, hasMore, isLoading, fetchMoreUsers]);
 
   const handleDelete = (id: number) => {
     if (confirm("Вы уверены, что хотите удалить пользователя?")) {
@@ -27,15 +46,20 @@ export const Table = observer(() => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={containerRef}>
       <div className={styles.header}>
         <div className={styles.logo}>
           <SiVk size={24} />
           <span className={styles.title}>VK Test App</span>
         </div>
-        <Link to="/add" className={styles.addButton}>
-          <MdFormatListBulletedAdd size={20} />
-        </Link>
+        <div className={styles.actions}>
+          <Link to="/search" className={styles.addButton}>
+            <FaSearch size={20} />
+          </Link>
+          <Link to="/add" className={styles.addButton}>
+            <MdFormatListBulletedAdd size={20} />
+          </Link>
+        </div>
       </div>
 
       <InfiniteScroll
@@ -82,14 +106,14 @@ export const Table = observer(() => {
                         className={styles.actionButton}
                         title="Редактировать"
                       >
-                        <MdEdit />
+                        <FaEdit size={15} />
                       </Link>
                       <button
                         className={styles.actionButton}
                         onClick={() => handleDelete(user.id)}
                         title="Удалить"
                       >
-                        <MdDelete />
+                        <MdDelete size={21} />
                       </button>
                     </div>
                   </td>

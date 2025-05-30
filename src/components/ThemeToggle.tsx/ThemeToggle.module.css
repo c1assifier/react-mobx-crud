@@ -1,0 +1,26 @@
+.iconButton {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--button-addButton-bg);
+  color: var(--color-text-btn);
+  border: 1.5px solid var(--color-button-border);
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 6px var(--color-shadow);
+}
+
+.iconButton:hover {
+  background-color: var(--button-addButton-hover);
+  border-color: var(--color-text);
+  box-shadow: 0 0 10px var(--color-button-hover);
+  transform: scale(1.03);
+}

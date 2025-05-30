@@ -10,9 +10,9 @@
 .title {
   font-size: 28px;
   font-weight: bold;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 16px;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 8px var(--color-shadow);
 }
 
 .form {
@@ -20,7 +20,8 @@
   flex-direction: column;
   gap: 12px;
   padding: 16px;
-  background: #2b2626;
+  background: var(--color-panel-bg);
+  box-shadow: var(--form-shadow);
   border-radius: 12px;
   width: 300px;
 }
@@ -29,9 +30,9 @@ input,
 button {
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #555;
-  background-color: #1c1c1c;
-  color: white;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-input-bg);
+  color: var(--color-text);
 }
 
 button[type="submit"] {
@@ -41,7 +42,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #333;
+  background-color: var(--color-hover);
 }
 
 button:disabled {
@@ -53,11 +54,11 @@ button:disabled {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: white;
+  color: var(--color-text);
 }
 
 .error {
-  color: #ff5555;
+  color: var(--color-error);
   font-size: 13px;
   margin-top: -8px;
   margin-bottom: 4px;
