@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHistory } from "react-icons/fa";
 import { UserForm } from "@/components/UserForm/UserForm";
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user.ts";
 import styles from "./UserFormPage.module.css";
 import { FaCircle } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
