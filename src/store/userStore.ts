@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user.ts";
 import { API_URL } from "@/config/endpoints";
 import { mockUsers } from "@/mocks/users";
 

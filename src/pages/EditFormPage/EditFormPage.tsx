@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useStores } from "@/store/StoreContext";
-import type { IUser } from "@/types/user";
+import type { IUser } from "@/types/user.ts";
 import styles from "./EditFormPage.module.css";
 import { EditForm } from "@/components/EditForm";
 import { IoMdArrowRoundBack } from "react-icons/io";
