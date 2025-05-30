@@ -6,6 +6,7 @@ import type { IUser } from "@/types/User";
 import styles from "./UserFormPage.module.css";
 import { FaCircle } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { ThemeToggle } from "@/components/ThemeToggle.tsx";
 
 export const UserFormPage = () => {
   const [showHistory, setShowHistory] = useState(false);
@@ -22,6 +23,7 @@ export const UserFormPage = () => {
 
   return (
     <div className={styles.page}>
+      <ThemeToggle />
       <h1 className={styles.title}>Создание пользователя</h1>
 
       <UserForm

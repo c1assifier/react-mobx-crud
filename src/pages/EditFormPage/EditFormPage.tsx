@@ -5,6 +5,7 @@ import type { IUser } from "@/types/User";
 import styles from "./EditFormPage.module.css";
 import { EditForm } from "@/components/EditForm";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { ThemeToggle } from "@/components/ThemeToggle.tsx";
 
 export const EditUserPage = () => {
   const { id } = useParams();
@@ -24,6 +25,7 @@ export const EditUserPage = () => {
 
   return (
     <div className={styles.page}>
+      <ThemeToggle />
       <h1 className={styles.title}>Редактирование пользователя</h1>
 
       {userToEdit && (
