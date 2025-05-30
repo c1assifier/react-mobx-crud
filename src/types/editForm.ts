@@ -1,4 +1,4 @@
-import type { IUser } from "./user";
+import type { IUser } from "./User";
 
 export type EditFormData = {
   name: string;
