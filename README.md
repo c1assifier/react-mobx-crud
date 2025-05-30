@@ -47,13 +47,13 @@
 ## ▶️ Запуск проекта
 
 1. Клонировать репозиторий
-git clone https://github.com/c1assifier/react-mobx-crud.git
+   git clone https://github.com/c1assifier/react-mobx-crud.git
 
 2. Перейти в директорию проекта
-cd react-mobx-crud
+   cd react-mobx-crud
 
 3. Установить зависимости
-npm install
+   npm install
 
 4. Запустить проект
-npm run start
+   npm run start
