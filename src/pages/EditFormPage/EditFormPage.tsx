@@ -32,7 +32,11 @@ export const EditUserPage = () => {
         <EditForm
           user={userToEdit}
           onSubmit={(updatedData) => {
-            userStore.updateUser({ ...userToEdit, ...updatedData });
+            userStore.updateUser({
+              ...userToEdit,
+              ...updatedData,
+              age: Number(updatedData.age), //! строка в число
+            });
             navigate("/");
           }}
         />
