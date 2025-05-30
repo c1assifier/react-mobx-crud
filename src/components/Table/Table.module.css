@@ -24,6 +24,9 @@
 }
 
 .addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background-color: transparent;
   color: white;
   border: 1.5px solid rgba(255, 255, 255, 0.4);
@@ -40,6 +43,10 @@
   border-color: white;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   transform: scale(1.03);
+}
+
+.addText {
+  font-size: 15px;
 }
 
 .tableContainer {
@@ -69,6 +76,34 @@
 .table th {
   background-color: #2b2626;
   font-weight: bold;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionButton {
+  background-color: transparent;
+  color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+.actionButton:hover {
+  border-color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
 }
 
 .loading {
