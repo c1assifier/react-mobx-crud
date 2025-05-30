@@ -3,8 +3,9 @@ import type { IUser } from "@/types/User";
 import { API_URL } from "@/config/endpoints";
 import { mockUsers } from "@/mocks/users";
 
-const isGithubPages = window.location.hostname.includes("github.io");
-
+const isGithubPages =
+  typeof window !== "undefined" &&
+  window.location.hostname.includes("github.io");
 export class UserStore {
   users: IUser[] = [];
   isLoading = false;
