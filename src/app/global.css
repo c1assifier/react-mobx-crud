@@ -53,13 +53,15 @@
   --color-hover: #e0e0e0;
   --color-button-tools-border: #ccc;
   --color-shadow: rgba(0, 0, 0, 0.05);
-  --color-icon: #ffffff;
+  --color-icon: #212121;
   --color-history-btn: black;
+  --color-panel-border: rgba(0, 0, 0, 0.1);
 
-  --color-table-cell-bg: #212121;
+  --color-table-cell-bg: #fff;
   --color-table-border: #ccc;
   --color-table-shadow: rgba(0, 0, 0, 0.1);
   --color-table-blur: rgba(0, 0, 0, 0.05);
+  --color-table-text: #212121;
 
   --button-primary-bg: #444;
   --button-primary-hover-bg: #666;
