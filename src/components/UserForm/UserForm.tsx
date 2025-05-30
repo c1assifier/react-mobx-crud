@@ -14,6 +14,7 @@ const schema = yup.object({
     .string()
     .required("Имя обязательно")
     .min(2, "Слишком короткое имя")
+    .matches(/^[A-Za-zА-Яа-яЁё\s'-]+$/, "Имя должно содержать только буквы")
     .matches(noLinksRegex, "Имя не должно содержать ссылки или скрипты"),
   email: yup
     .string()
@@ -21,15 +22,13 @@ const schema = yup.object({
     .email("Некорректный email")
     .matches(noLinksRegex, "Email не должен содержать ссылки или скрипты"),
   age: yup
-    .number()
-    .typeError("Возраст должен быть числом")
+    .string()
     .required("Возраст обязателен")
-    .positive("Возраст должен быть положительным")
-    .integer("Возраст должен быть целым"),
+    .matches(/^\d+$/, "Возраст должен быть целым числом"),
   phone: yup
     .string()
     .required("Телефон обязателен")
-    .matches(/^[\d+\-\s()x]+$/, "Некорректный формат телефона")
+    .matches(/^[\d\s()+-]{7,20}$/, "Некорректный формат телефона")
     .matches(noLinksRegex, "Телефон не должен содержать ссылок"),
   status: yup
     .string()
@@ -54,7 +53,7 @@ export const UserForm = ({ onUserCreated }: Props) => {
     defaultValues: {
       name: "",
       email: "",
-      age: undefined,
+      age: "",
       phone: "",
       status: "active",
     },
@@ -71,11 +70,16 @@ export const UserForm = ({ onUserCreated }: Props) => {
     try {
       const newUser = {
         ...data,
+        age: Number(data.age),
         id: Date.now(),
         registered: new Date().toISOString(),
       };
 
-      await userStore.createUser(data);
+      await userStore.createUser({
+        ...data,
+        age: Number(data.age),
+      });
+
       onUserCreated?.(newUser);
       reset();
     } catch (error) {
@@ -100,7 +104,7 @@ export const UserForm = ({ onUserCreated }: Props) => {
               <span className={styles.error}>{errors.email.message}</span>
             )}
 
-            <input type="number" {...register("age")} placeholder="Возраст" />
+            <input {...register("age")} placeholder="Возраст" />
             {errors.age && (
               <span className={styles.error}>{errors.age.message}</span>
             )}
