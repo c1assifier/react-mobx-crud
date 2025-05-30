@@ -1,4 +1,4 @@
-import type { IUser } from "./user.ts";
+import type { IUser } from "./user";
 
 export type EditFormData = {
   name: string;
