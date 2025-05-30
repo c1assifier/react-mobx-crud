@@ -2,21 +2,29 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SiVk } from "react-icons/si";
+import { MdFormatListBulletedAdd, MdDelete, MdEdit } from "react-icons/md";
+import { FaCircle } from "react-icons/fa";
+import { RiToolsFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import styles from "./Table.module.css";
 import { useStores } from "@/store/StoreContext";
 import { Loader } from "../Loader";
-import { MdFormatListBulletedAdd } from "react-icons/md";
-import { FaCircle } from "react-icons/fa";
 
 export const Table = observer(() => {
   const { userStore } = useStores();
-  const { users, hasMore, fetchMoreUsers } = userStore;
+  const { users, hasMore, fetchMoreUsers, deleteUser } = userStore;
 
   useEffect(() => {
     if (users.length === 0) {
       fetchMoreUsers();
     }
-  }, []);
+  }, [users.length, fetchMoreUsers]);
+
+  const handleDelete = (id: number) => {
+    if (confirm("Вы уверены, что хотите удалить пользователя?")) {
+      deleteUser(id);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -25,9 +33,9 @@ export const Table = observer(() => {
           <SiVk size={24} />
           <span className={styles.title}>VK Test App</span>
         </div>
-        <button className={styles.addButton}>
+        <Link to="/add" className={styles.addButton}>
           <MdFormatListBulletedAdd size={20} />
-        </button>
+        </Link>
       </div>
 
       <InfiniteScroll
@@ -47,6 +55,9 @@ export const Table = observer(() => {
                 <th>Возраст</th>
                 <th>Статус</th>
                 <th>Телефон</th>
+                <th>
+                  <RiToolsFill size={20} />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +75,24 @@ export const Table = observer(() => {
                     />
                   </td>
                   <td>{user.phone}</td>
+                  <td>
+                    <div className={styles.actionButtons}>
+                      <Link
+                        to={`/edit/${user.id}`}
+                        className={styles.actionButton}
+                        title="Редактировать"
+                      >
+                        <MdEdit />
+                      </Link>
+                      <button
+                        className={styles.actionButton}
+                        onClick={() => handleDelete(user.id)}
+                        title="Удалить"
+                      >
+                        <MdDelete />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>

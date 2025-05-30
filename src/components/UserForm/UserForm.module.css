@@ -1,0 +1,108 @@
+.iconButton {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.iconButton:hover {
+  transform: scale(1.1);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.formContainer {
+  width: 320px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 16px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #2b2626;
+  border-radius: 12px;
+}
+
+input,
+button {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #1c1c1c;
+  color: white;
+}
+
+button[type="submit"] {
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+  background-color: #333;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+
+.error {
+  color: #ff5555;
+  font-size: 13px;
+  margin-top: -8px;
+  margin-bottom: 4px;
+}
+
+.historyPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 480px;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.95);
+  padding: 24px;
+  overflow-y: auto;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 999;
+  color: white;
+}
+
+.historyPanel h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.historyPanel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.historyPanel th,
+.historyPanel td {
+  padding: 8px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+}
