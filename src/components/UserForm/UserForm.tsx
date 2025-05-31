@@ -1,40 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useState } from "react";
 import { useStores } from "@/store/StoreContext";
 import type { FormData, Props } from "@/types/userForm";
+import { userSchema } from "@/validation/userSchema";
 import styles from "./UserForm.module.css";
-
-const noLinksRegex =
-  /^(?!.*(http:\/\/|https:\/\/|www\.|javascript:|data:|<|>)).*$/i;
-
-const schema = yup.object({
-  name: yup
-    .string()
-    .required("Имя обязательно")
-    .min(2, "Слишком короткое имя")
-    .matches(/^[A-Za-zА-Яа-яЁё\s'-]+$/, "Имя должно содержать только буквы")
-    .matches(noLinksRegex, "Имя не должно содержать ссылки или скрипты"),
-  email: yup
-    .string()
-    .required("Email обязателен")
-    .email("Некорректный email")
-    .matches(noLinksRegex, "Email не должен содержать ссылки или скрипты"),
-  age: yup
-    .string()
-    .required("Возраст обязателен")
-    .matches(/^\d+$/, "Возраст должен быть целым числом"),
-  phone: yup
-    .string()
-    .required("Телефон обязателен")
-    .matches(/^[\d\s()+-]{7,20}$/, "Некорректный формат телефона")
-    .matches(noLinksRegex, "Телефон не должен содержать ссылок"),
-  status: yup
-    .string()
-    .oneOf(["active", "inactive"])
-    .required("Статус обязателен"),
-});
 
 export const UserForm = ({ onUserCreated }: Props) => {
   const { userStore } = useStores();
@@ -48,12 +18,12 @@ export const UserForm = ({ onUserCreated }: Props) => {
     reset,
     formState: { errors, isValid },
   } = useForm<FormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(userSchema),
     mode: "onChange",
     defaultValues: {
       name: "",
       email: "",
-      age: "",
+      age: 0,
       phone: "",
       status: "active",
     },
@@ -70,15 +40,11 @@ export const UserForm = ({ onUserCreated }: Props) => {
     try {
       const newUser = {
         ...data,
-        age: Number(data.age),
         id: Date.now(),
         registered: new Date().toISOString(),
       };
 
-      await userStore.createUser({
-        ...data,
-        age: Number(data.age),
-      });
+      await userStore.createUser(newUser);
 
       onUserCreated?.(newUser);
       reset();
@@ -94,22 +60,50 @@ export const UserForm = ({ onUserCreated }: Props) => {
       <div className={styles.wrapper}>
         <div className={styles.formContainer}>
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("name")} placeholder="Имя" />
+            <input
+              {...register("name")}
+              placeholder="Имя"
+              autoComplete="name"
+              aria-invalid={!!errors.name}
+              required
+            />
             {errors.name && (
               <span className={styles.error}>{errors.name.message}</span>
             )}
 
-            <input {...register("email")} placeholder="Email" />
+            <input
+              {...register("email")}
+              placeholder="Email"
+              type="email"
+              autoComplete="email"
+              aria-invalid={!!errors.email}
+              required
+            />
             {errors.email && (
               <span className={styles.error}>{errors.email.message}</span>
             )}
 
-            <input {...register("age")} placeholder="Возраст" />
+            <input
+              {...register("age", { valueAsNumber: true })}
+              placeholder="Возраст"
+              type="number"
+              min={14}
+              max={120}
+              aria-invalid={!!errors.age}
+              required
+            />
             {errors.age && (
               <span className={styles.error}>{errors.age.message}</span>
             )}
 
-            <input {...register("phone")} placeholder="Телефон" />
+            <input
+              {...register("phone")}
+              placeholder="Телефон"
+              type="tel"
+              autoComplete="tel"
+              aria-invalid={!!errors.phone}
+              required
+            />
             {errors.phone && (
               <span className={styles.error}>{errors.phone.message}</span>
             )}
