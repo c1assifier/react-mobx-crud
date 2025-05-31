@@ -3,7 +3,7 @@ import type { IUser } from "./User";
 export type FormData = {
   name: string;
   email: string;
-  age: string;
+  age: number;
   phone: string;
   status: "active" | "inactive";
 };
