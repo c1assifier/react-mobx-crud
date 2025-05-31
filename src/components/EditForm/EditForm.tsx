@@ -1,39 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useEffect } from "react";
+import { userSchema } from "@/validation/userSchema";
 import styles from "./EditForm.module.css";
 import type { EditFormData, EditFormProps } from "@/types/editForm";
-
-const noLinksRegex =
-  /^(?!.*(http:\/\/|https:\/\/|www\.|javascript:|data:|<|>)).*$/i;
-
-const schema = yup.object({
-  name: yup
-    .string()
-    .required("Имя обязательно")
-    .min(2, "Слишком короткое имя")
-    .matches(/^[A-Za-zА-Яа-яЁё\s'-]+$/, "Имя должно содержать только буквы")
-    .matches(noLinksRegex, "Имя не должно содержать ссылки или скрипты"),
-  email: yup
-    .string()
-    .required("Email обязателен")
-    .email("Некорректный email")
-    .matches(noLinksRegex, "Email не должен содержать ссылки или скрипты"),
-  age: yup
-    .string()
-    .required("Возраст обязателен")
-    .matches(/^\d+$/, "Возраст должен быть целым числом"),
-  phone: yup
-    .string()
-    .required("Телефон обязателен")
-    .matches(/^[\d\s()+-]{7,20}$/, "Некорректный формат телефона")
-    .matches(noLinksRegex, "Телефон не должен содержать ссылок"),
-  status: yup
-    .string()
-    .oneOf(["active", "inactive"], "Некорректный статус")
-    .required("Статус обязателен"),
-});
 
 export const EditForm = ({ user, onSubmit }: EditFormProps) => {
   const {
@@ -43,12 +13,12 @@ export const EditForm = ({ user, onSubmit }: EditFormProps) => {
     watch,
     formState: { errors, isValid },
   } = useForm<EditFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(userSchema),
     mode: "onChange",
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
-      age: user?.age?.toString() ?? "",
+      age: user?.age ?? 0,
       phone: user?.phone || "",
       status: user?.status || "active",
     },
@@ -58,7 +28,7 @@ export const EditForm = ({ user, onSubmit }: EditFormProps) => {
     if (user) {
       setValue("name", user.name);
       setValue("email", user.email);
-      setValue("age", user.age.toString());
+      setValue("age", user.age);
       setValue("phone", user.phone);
       setValue("status", user.status);
     }
@@ -68,15 +38,7 @@ export const EditForm = ({ user, onSubmit }: EditFormProps) => {
   const isActive = status === "active";
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={handleSubmit((formData) => {
-        onSubmit({
-          ...formData,
-          age: formData.age.toString(),
-        });
-      })}
-    >
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <input {...register("name")} placeholder="Имя" />
       {errors.name && (
         <span className={styles.error}>{errors.name.message}</span>
@@ -87,7 +49,13 @@ export const EditForm = ({ user, onSubmit }: EditFormProps) => {
         <span className={styles.error}>{errors.email.message}</span>
       )}
 
-      <input {...register("age")} placeholder="Возраст" />
+      <input
+        {...register("age", { valueAsNumber: true })}
+        type="number"
+        placeholder="Возраст"
+        min={14}
+        max={120}
+      />
       {errors.age && <span className={styles.error}>{errors.age.message}</span>}
 
       <input {...register("phone")} placeholder="Телефон" />
