@@ -899,15 +899,6 @@
       "phone": "4426665560",
       "status": "inactive",
       "registered": "2024-05-09"
-    },
-    {
-      "status": "inactive",
-      "phone": "+789022",
-      "age": 20,
-      "email": "example@mail.ru",
-      "name": "Example",
-      "id": 101,
-      "registered": "2025-05-30"
     }
   ]
 }
